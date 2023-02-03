@@ -1,0 +1,164 @@
+<% if user_signed_in?  %>
+
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+
+  <div class="mt-10">
+    <h1 class="text-4xl font-bold leading-none text-center sm:text-5xl mb-24 text-gray-100">Транзакції</h1>
+  </div>
+  <% unless @operations.empty? %>
+  <div class="flex justify-center mt-2 mx-auto">
+    <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+      <div class="min-w-full">
+        <table class="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
+          <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+          <tr>
+            <th scope="col" class="py-3 px-6">
+              №
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Категорія
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Тип операції
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Сума
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Дата
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Фото
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Опис
+            </th>
+            <th scope="col" class="py-3 px-6">
+              Управління
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% n = 0  %>
+          <% @operations.each do |operation| %>
+            <tr class="border-b bg-gray-800 border-gray-700 hover:bg-gray-600 w-full text-sm text-center text-gray-500">
+              <div class=" border-gray-700 min-w-full" >
+                <th scope="row" class="py-4 px-6 font-medium whitespace-nowrap text-white">
+                  <% n += 1  %>
+                  <%= n %>
+                </th>
+                <td class="py-4 px-6 text-white">
+                  <%= Category.find(operation.category_id).name %>
+                </td>
+                <td class="py-4 px-6 text-white">
+                  <%= operation.type_operation %>
+                </td>
+                <td class="py-4 px-6 text-white">
+                  <%= operation.amount %>
+                </td>
+                <td class="py-4 px-6 text-white">
+                  <%= operation.odate.strftime("%Y-%m-%d") %>
+                </td>
+                <td class="py-4 px-6">
+                  <% if operation.images.attached? %>
+                    <div class="flex flex-row-reverse justify-around -space-x-3 space-x-reverse">
+                      <div class="flex flex-row-reverse justify-end -space-x-3 space-x-reverse">
+                        <% operation.images.each do |image| %>
+                          <div class="relative flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-full bg-gray-100 text-sm font-bold uppercase text-gray-800 ring ring-yellow-500">
+                            <%= image_tag image, class:"h-full w-full rounded-full object-cover object-center" %>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
+                </td>
+                <td class="py-4 px-6 text-white text-left">
+                  <%= operation.description %>
+                </td>
+                <td class="py-4 px-6">
+                  <% if operation.user_id == current_user.id %>
+                    <%= link_to(operation_path(operation), class: "text-gray-400 hover:text-yellow-500 mr-2") do %>
+                      <i class="material-icons-outlined text-base">visibility</i>
+                    <% end %>
+                    <%= link_to(edit_operation_path(operation), class: "text-gray-400 hover:text-yellow-500 mr-2") do %>
+                      <i class="material-icons-outlined text-base">edit</i>
+                    <% end %>
+                    <%= link_to(operation_path(operation), data: { "turbo-method": :delete,
+                                                                 turbo_confirm: "Ви впевнені?" }, class: "text-gray-400 hover:text-yellow-500 mr-2") do %>
+                      <i class="material-icons-round text-base">delete_outline</i>
+                    <% end %>
+                  <% end %>
+                </td>
+              </div>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-10 flex items-center space-x-2 overflow-x-auto overflow-y-hidden justify-center flex-nowrap dark:text-gray-100">
+    <%= paginate @operations %>
+  </div>
+
+  <% end %>
+
+
+  <div class="mt-10 flex items-center space-x-2 overflow-x-auto overflow-y-hidden justify-center flex-nowrap dark:text-gray-100">
+    <div class="actions px-8 pt-4 mb-4"><%= link_to "Додати Операцію", new_operation_path, class: "px-8 py-2 font-semibold border rounded border-white text-white cursor-pointer hover:border-blue-500 hover:text-blue-500" %></div>
+    <div class="actions px-8 pt-4 mb-4"><%= link_to "Генерація Звіту", reports_index_path, class: "px-8 py-2 font-semibold border rounded border-white text-white cursor-pointer hover:border-blue-500 hover:text-blue-500" %></div>
+  </div>
+
+
+<% else %>
+  <div class="py-20" style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%)">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-2 text-white">
+        Додаток Smart Finance!
+      </h2>
+      <h3 class="text-2xl mb-8 text-gray-200">
+        Контролюйте свої фінансові показники, де б ви не були.
+      </h3>
+
+      <button class="bg-white font-bold rounded-full py-4 px-8 shadow-lg uppercase tracking-wider">
+        <%= link_to "Зареєструватися", new_user_registration_path %>
+      </button>
+    </div>
+  </div>
+
+  <section class="container mx-auto px-6 p-10">
+    <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
+      Features
+    </h2>
+    <div class="flex items-center flex-wrap mb-20">
+      <div class="w-full md:w-1/2">
+        <h4 class="text-3xl text-gray-100 font-bold mb-3">Фінансова метрика</h4>
+        <p class="text-gray-400 mb-8">З нашим додатком Smart Finance Ви може фіксувати свої фінансові показники. Ви можете створити різні категорії витрат та доходів і відстежувати їх за різними показниками.</p>
+      </div>
+      <div class="w-full md:w-1/2">
+        <%= image_tag("first.png", alt: "Фінансова метрика")%>
+      </div>
+    </div>
+
+    <div class="flex items-center flex-wrap mb-20">
+      <div class="w-full md:w-1/2">
+        <%= image_tag("second.png", alt: "Звітність")%>
+      </div>
+      <div class="w-full md:w-1/2 pl-10">
+        <h4 class="text-3xl text-gray-100 font-bold mb-3">Звітність</h4>
+        <p class="text-gray-400 mb-8">Наш додаток Smart Finance може генерувати повний звіт про Ваші фінансові результати залежно від ваших налаштувань.</p>
+      </div>
+    </div>
+
+    <div class="flex items-center flex-wrap mb-20">
+      <div class="w-full md:w-1/2">
+        <h4 class="text-3xl text-gray-100 font-bold mb-3">Цілі</h4>
+        <p class="text-gray-400 mb-8">Тут повинно було щось написано про цілі, але функція не створена, а головну сторінку потрібно доробити</p>
+      </div>
+      <div class="w-full md:w-1/2">
+        <%= image_tag("third.png", alt: "Цілі")%>
+      </div>
+    </div>
+  </section>
+<% end %>

@@ -1,0 +1,109 @@
+<script type='text/javascript'>
+    (function(){
+        if(!sessionStorage.getItem('firstLoad')){
+            sessionStorage['firstLoad'] = true;
+            window.location.reload();
+        }else{
+            sessionStorage.removeItem('firstLoad');
+        }})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="mt-10">
+  <h1 class="text-4xl font-bold leading-none text-center sm:text-5xl mb-24 text-gray-100">Звіт "Розподіл <%= "витрат" if @t_operation == "Витрата" %><%= "доходів" if @t_operation == "Дохід" %> за період по датам"</h1>
+</div>
+
+<main>
+  <div class="px-10">
+    <div class="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+      <div class="bg-gray-900 shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+        <div class="mb-4 flex items-center justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-gray-100 mb-2">Дати</h3>
+            <span class="text-base font-normal text-gray-500">Це список з датами та сумами <%= "затрат" if @t_operation == "Витрата" %><%= "доходів" if @t_operation == "Дохід" %> в ці дні за обраний період</span>
+          </div>
+        </div>
+        <div class="flex flex-col mt-8">
+          <div class="overflow-x-auto rounded-lg">
+            <div class="align-middle inline-block min-w-full">
+              <div class="shadow overflow-hidden sm:rounded-lg">
+                <table class="min-w-full text-sm text-center">
+                  <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+                  <tr>
+                    <th scope="col" class="p-4 font-medium tracking-wider">
+                      Дата
+                    </th>
+                    <th scope="col" class="p-4 font-medium tracking-wider">
+                      Сума
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody class="bg-gray-800">
+                  <% @all.each do |all| %>
+                  <tr class="border-b border-gray-700">
+                    <td class="p-4 whitespace-nowrap font-normal text-white text-left">
+                      <%= all[0].strftime("%Y-%m-%d") %>
+                    </td>
+                    <td class="p-4 whitespace-nowrap font-semibold text-white">
+                      <%= all[1] %>
+                    </td>
+                  </tr>
+                  <% end %>
+                  <tr class="border-b border-gray-700">
+                    <td class="p-4 whitespace-nowrap font-semibold text-blue-500 text-left">
+                      Всього:
+                    </td>
+                    <td class="p-4 whitespace-nowrap font-semibold text-blue-500">
+                      <%= @all_amount %>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-900 shadow rounded-lg py-4 sm:py-6 xl:py-8  2xl:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex-shrink-0 px-8">
+            <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-100"><%= @all_amount %> UAH</span>
+            <h3 class="text-base font-normal text-gray-500">За період: <%= @start_date %> - <%= @end_date %></h3>
+          </div>
+        </div>
+        <div class="flex  justify-center">
+          <canvas id="myChart" width="900" height="400"></canvas>
+
+          <script>
+              const ctx = document.getElementById('myChart');
+              const data = {
+                  labels: <%= raw @dates %>,
+                  datasets: [{
+                      label: 'My First Dataset',
+                      data: <%= @amount %>,
+                      fill: false,
+                      borderColor: 'rgb(75, 192, 192)',
+                      tension: 0.1
+                  }]
+              };
+
+              const config = {
+                  type: 'line',
+                  data: data,
+                  options: {
+                      responsive: false
+                  }
+              };
+
+              const myChart = new Chart(ctx, config);
+          </script>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="mt-10 flex items-center space-x-2 overflow-x-auto overflow-y-hidden justify-center flex-nowrap dark:text-gray-100">
+  <div class="actions px-8 pt-4 mb-4"><%= link_to "Повернутися", reports_index_path, class: "px-8 py-2 font-semibold border rounded border-white text-white cursor-pointer hover:border-blue-500 hover:text-blue-500" %></div>
+</div>

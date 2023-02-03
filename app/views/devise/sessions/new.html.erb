@@ -1,0 +1,35 @@
+<div class="mt-20 flex justify-center">
+  <div class="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-900 text-gray-100">
+    <div class="mb-8 text-center">
+      <h1 class="my-3 text-4xl font-bold">Авторизуватися</h1>
+      <p class="text-sm text-gray-400">Увійдіть, щоб отримати доступ до свого облікового запису</p>
+    </div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: "space-y-12 ng-untouched ng-pristine ng-valid") do |form| %>
+      <div class="space-y-4">
+        <div class="field">
+          <%= form.label "Пошта", class: "block mb-2 text-sm" %>
+          <%= form.email_field :email, autofocus: true, autocomplete: "email", class: "shadow-sm w-full px-3 py-2 border rounded-md border-gray-700 bg-gray-900 text-gray-100 focus:ring-blue-500 focus:border-blue-500 shadow-sm-light", placeholder:"dosi@gmail.com" %>
+        </div>
+
+        <div class="field">
+          <%= form.label "Пароль", class: "block mb-2 text-sm" %>
+          <%= form.password_field :password, autocomplete: "current-password", class: "w-full px-3 py-2 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100", placeholder:"******" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="field">
+            <%= form.check_box :remember_me %>
+            <%= form.label "Запам'ятай мене", class: "text-sm hover:underline dark:text-gray-400" %>
+          </div>
+        <% end %>
+        <div class="space-y-2">
+          <div class="actions">
+            <%= form.submit "Авторизуватися", class: "w-full px-8 py-3 font-semibold border rounded-md border-white text-white cursor-pointer hover:border-blue-500 hover:text-blue-500" %>
+          </div>
+          <p class="px-6 text-sm text-center dark:text-gray-400">Ще не маєте облікового запису?
+            <%= link_to "Зареєструватися", new_user_registration_path, class: "hover:underline text-blue-500" %>
+          </p>
+        </div>
+    <% end %>
+  </div>
+</div>

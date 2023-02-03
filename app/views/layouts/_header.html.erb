@@ -1,0 +1,65 @@
+<header class="p-4 bg-gray-900 dark:text-gray-100">
+  <div class="container flex justify-between h-16 mx-auto">
+    <a rel="noopener noreferrer" href="/" aria-label="Back to homepage" class="flex items-center p-2">
+      <%= image_tag("logo_2.png", class: "h-16 w-16 rounded-full", alt: "Лого")%>
+    </a>
+    <ul class="items-stretch hidden space-x-3 lg:flex">
+      <li class="flex">
+        <%= link_to "Головна", root_path, class: "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:dark:text-violet-400 hover:dark:border-violet-400" %>
+      </li>
+      <% if user_signed_in?  %>
+        <li class="flex">
+          <%= link_to "Категорії", categories_path, class: "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:dark:text-violet-400 hover:dark:border-violet-400" %>
+        </li>
+        <li class="flex">
+          <%= link_to "Звіти", reports_index_path, class: "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:dark:text-violet-400 hover:dark:border-violet-400" %>
+        </li>
+      <% end %>
+      <li class="flex">
+        <%= link_to "FAQ", static_pages_faq_path, class: "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:dark:text-violet-400 hover:dark:border-violet-400" %>
+      </li>
+    </ul>
+    <div class="items-center flex-shrink-0 hidden lg:flex">
+      <div class="hidden md:block">
+        <div class="ml-4 flex items-center md:ml-6">
+          <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+          <nav :class="{'flex': open, 'hidden': !open}"
+               class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+            <div @click.away="open = false" class="relative" x-data="{ open: false }">
+              <% if user_signed_in?  %>
+                <button @click="open = !open"
+                        class="flex flex-row items-center space-x-2 w-full px-4 py-2 mt-2 font-semibold text-left bg-transparent md:w-auto md:inline md:mt-0 md:ml-4">
+                  <span class= "rounded-md "><%= current_user.name %> <%= current_user.last_name %></span>
+                  <% if current_user.avatar.attached? %>
+                    <%= image_tag current_user.avatar, class: "inline w-10 h-10 rounded-full" %>
+                  <% else %>
+                    <img class="inline h-10 w-10 rounded-full" src="https://st2.depositphotos.com/47577860/46283/v/450/depositphotos_462836132-stock-illustration-assassin-deadpool-face-icon.jpg" alt="">
+                  <% end %>
+              <% else %>
+                <%= link_to "Увійти", new_user_session_path, class: "self-center px-8 py-3 rounded hover:font-semibold hover:dark:bg-violet-400 hover:dark:text-gray-900" %>
+                <%= link_to "Зареєструватися", new_user_registration_path, class: "self-center px-8 py-3 rounded hover:font-semibold hover:dark:bg-violet-400 hover:dark:text-gray-900" %>
+              <% end %>
+              </button>
+              <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                   x-transition:enter-start="transform opacity-0 scale-95"
+                   x-transition:enter-end="transform opacity-100 scale-100"
+                   x-transition:leave="transition ease-in duration-75"
+                   x-transition:leave-start="transform opacity-100 scale-100"
+                   x-transition:leave-end="transform opacity-0 scale-95"
+                   class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+                <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                  <%= link_to "Налаштування профілю", edit_user_registration_path, class: "block px-4 py-2 text-sm text-gray-700" %>
+                  <div class="border-b"></div>
+                  <%= link_to "Вийти", destroy_user_session_path, class: "block px-4 py-2 text-sm text-gray-700" %>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <button class="p-4 lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 dark:text-gray-100">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+</header>

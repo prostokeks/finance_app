@@ -1,0 +1,38 @@
+<div class="mt-10">
+  <h1 class="text-4xl font-bold leading-none text-center sm:text-5xl mb-24 text-gray-100">Генератор звітів</h1>
+</div>
+
+<div class="w-full max-w-lg mx-auto mt-12 p-6 rounded-md sm:p-10 bg-gray-900">
+  <form action="reports/report_by_category" method="GET">
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <div class="relative z-0 mb-6 w-full group">
+        <p class="block mb-2 text-sm font-medium text-gray-300">Початкова дата</p>
+        <input required type="date" name="start_date" class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+      </div>
+      <div class="relative z-0 mb-6 w-full group">
+        <p class="block mb-2 text-sm font-medium text-gray-300">Кінцева дата</p>
+        <input required type="date" name="end_date" class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+      </div>
+    </div>
+    <div class="relative z-0 mb-6 w-full group">
+      <p class="block mb-2 text-sm font-medium text-gray-300">Тип операції</p>
+      <select name="type_operation" class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+        <option value="Витрата">Витрата</option>
+        <option value="Дохід">Дохід</option>
+      </select>
+    </div>
+    <div class="relative z-0 mb-6 w-full group">
+      <p class="block mb-2 text-sm font-medium text-gray-300">Категорія</p>
+      <select name="category" class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+        <option value="Виберіть категорію">Виберіть категорію</option>
+        <% @categories.each do |category| %>
+          <option value="<%= category.id %>"><%= category.name %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="mt-10 flex items-center space-x-2 overflow-x-auto overflow-y-hidden justify-center flex-nowrap dark:text-gray-100">
+      <div class="actions px-8 pt-4 mb-4"><input type="submit" name="btn_cat" value="По категорії" class="px-8 py-2 font-semibold border rounded border-white text-white cursor-pointer hover:border-blue-500 hover:text-blue-500"></div>
+      <div class="actions px-8 pt-4 mb-4"><input type="submit" formaction="reports/report_by_dates" name="btn_date" value="По даті" class="px-8 py-2 font-semibold border rounded border-white text-white cursor-pointer hover:border-blue-500 hover:text-blue-500"></div>
+    </div>
+  </form>
+</div>

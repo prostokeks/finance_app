@@ -1,0 +1,63 @@
+<div class="w-full max-w-lg mx-auto mt-20">
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <div class="relative z-0 mb-6 w-full group">
+        <%= f.label "Ім'я", class: "block mb-2 text-sm font-medium text-gray-300" %>
+        <%= f.text_field :name, class: "shadow-sm border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light", placeholder: "Ім'я" %>
+      </div>
+      <div class="relative z-0 mb-6 w-full group">
+        <%= f.label "Фамілія", class: "block mb-2 text-sm font-medium text-gray-300" %>
+        <%= f.text_field :last_name, class: "shadow-sm border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light", placeholder: "Фамілія" %>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <div class="relative z-0 mb-6 w-full group">
+        <%= f.label "Пошта", class: "block mb-2 text-sm font-medium text-gray-300" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "shadow-sm border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light", placeholder: "dosi@gmail.com" %>
+      </div>
+      <div class="field">
+        <%= f.label "Фото", class: "block mb-2 text-sm font-medium text-gray-300" %>
+        <%= f.file_field :avatar, class: "text-gray-300 text-sm" %>
+      </div>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <div class="relative z-0 mb-6 w-full group">
+        <%= f.label "Пароль", class: "block mb-2 text-sm font-medium text-gray-300" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "shadow-sm border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light", placeholder: "Порожній, якщо Ви не змінюєте" %>
+        <% if @minimum_password_length %>
+          <em class="text-xs text-gray-400">Мінімум <%= @minimum_password_length %> символів</em>
+        <% end %>
+      </div>
+      <div class="relative z-0 mb-6 w-full group">
+        <%= f.label "Підтвердження паролю", class: "block mb-2 text-sm font-medium text-gray-300" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "shadow-sm border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" %>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <div class="relative z-0 w-full group">
+        <%= f.label "Поточний пароль", class: "block mb-2 text-sm font-medium text-gray-300" %>
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "shadow-sm border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" %>
+        <em class="text-xs text-gray-400">(нам потрібен Ваш поточний пароль, щоб підтвердити Ваші зміни)</em>
+      </div>
+    </div>
+
+    <div class="field my-6 w-full flex justify-center">
+      <%= f.submit "Зберегти", class: "px-8 py-2 font-semibold border rounded border-white text-white cursor-pointer hover:border-blue-500 hover:text-blue-500" %>
+    </div>
+
+    <div class="field mb-20 w-full flex justify-center">
+      <%= link_to "Повернутися", :back, class: "px-8 py-2 font-semibold border rounded border-white text-white cursor-pointer hover:border-blue-500 hover:text-blue-500" %>
+    </div>
+  <% end %>
+
+</div>

@@ -1,0 +1,71 @@
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+
+<div class="mt-10">
+  <h1 class="text-4xl font-bold leading-none text-center sm:text-5xl mb-24 text-gray-100">Категорії витрат / доходів</h1>
+</div>
+
+<div class="flex justify-center mt-2 mx-auto">
+  <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+    <div class="min-w-full">
+      <table class="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
+        <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+        <tr>
+          <th scope="col" class="py-3 px-6">
+            №
+          </th>
+          <th scope="col" class="py-3 px-6">
+            Назва
+          </th>
+          <th scope="col" class="py-3 px-6">
+            Опис
+          </th>
+          <th scope="col" class="py-3 px-6">
+            Управління
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% n = 0  %>
+        <% @categories.each do |category| %>
+          <tr class="border-b bg-gray-800 border-gray-700 hover:bg-gray-600 w-full text-sm text-center text-gray-500">
+            <div class=" border-gray-700 min-w-full" >
+              <th scope="row" class="py-4 px-6 font-medium whitespace-nowrap text-white">
+                <% n += 1  %>
+                <%= n %>
+              </th>
+              <td class="py-4 px-6 text-white">
+                <%= category.name %>
+              </td>
+              <td class="py-4 px-6 text-white text-left">
+                <%= category.description %>
+              </td>
+              <td class="py-4 px-6">
+                <% if category.user_id == current_user.id %>
+                  <%= link_to(edit_category_path(category), class: "text-gray-400 hover:text-yellow-500 mr-2") do %>
+                    <i class="material-icons-outlined text-base">edit</i>
+                  <% end %>
+                  <%= link_to(category_path(category), data: { "turbo-method": :delete,
+                                                                    turbo_confirm: "Ви впевнені?" }, class: "text-gray-400 hover:text-yellow-500 mr-2") do %>
+                    <i class="material-icons-round text-base">delete_outline</i>
+                  <% end %>
+                <% end %>
+              </td>
+            </div>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="mt-10 flex items-center space-x-2 overflow-x-auto overflow-y-hidden justify-center flex-nowrap dark:text-gray-100">
+    <%= paginate @categories %>
+</div>
+
+<div class="mt-10 flex items-center space-x-2 overflow-x-auto overflow-y-hidden justify-center flex-nowrap dark:text-gray-100">
+  <div class="actions px-8 pt-4 mb-4"><%= link_to "Додати Категорію", new_category_path, class: "px-8 py-2 font-semibold border rounded border-white text-white cursor-pointer hover:border-blue-500 hover:text-blue-500" %></div>
+</div>
+
+
+
