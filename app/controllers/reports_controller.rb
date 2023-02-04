@@ -48,7 +48,7 @@ class ReportsController < ApplicationController
 
     @all = date
     @all_amount = all_amount
-    @dates = date.map { |e| e[0].to_s}
+    @dates = date.map { |e| e[0].strftime('%d.%m')}
     @amount = date.map { |e| e[1].to_f}
     @start_date = start_date
     @end_date = end_date
