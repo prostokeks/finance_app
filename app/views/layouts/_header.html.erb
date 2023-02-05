@@ -5,18 +5,18 @@
     </a>
     <ul class="items-stretch hidden space-x-3 lg:flex">
       <li class="flex">
-        <%= link_to "Головна", root_path, class: "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:text-violet-400 hover:border-violet-400" %>
+        <%= link_to "Головна", root_path, class: "flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-violet-400 hover:border-violet-400" %>
       </li>
       <% if user_signed_in?  %>
         <li class="flex">
-          <%= link_to "Категорії", categories_path, class: "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:text-violet-400 hover:border-violet-400" %>
+          <%= link_to "Категорії", categories_path, class: "flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-violet-400 hover:border-violet-400" %>
         </li>
         <li class="flex">
-          <%= link_to "Звіти", reports_index_path, class: "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:text-violet-400 hover:border-violet-400" %>
+          <%= link_to "Звіти", reports_index_path, class: "flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-violet-400 hover:border-violet-400" %>
         </li>
       <% end %>
       <li class="flex">
-        <%= link_to "FAQ", static_pages_faq_path, class: "flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:text-violet-400 hover:border-violet-400" %>
+        <%= link_to "FAQ", static_pages_faq_path, class: "flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-violet-400 hover:border-violet-400" %>
       </li>
     </ul>
     <div class="items-center flex-shrink-0 hidden lg:flex">
