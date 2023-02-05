@@ -7,23 +7,23 @@
     <div class="grid md:grid-cols-2 md:gap-6">
       <div class="relative z-0 mb-6 w-full group">
         <p class="block mb-2 text-sm font-medium text-gray-300">Початкова дата</p>
-        <input required type="date" name="start_date" class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+        <input required type="date" name="start_date" class="shadow-sm border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light form-control">
       </div>
       <div class="relative z-0 mb-6 w-full group">
         <p class="block mb-2 text-sm font-medium text-gray-300">Кінцева дата</p>
-        <input required type="date" name="end_date" class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+        <input required type="date" name="end_date" class="shadow-sm border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light form-control">
       </div>
     </div>
     <div class="relative z-0 mb-6 w-full group">
       <p class="block mb-2 text-sm font-medium text-gray-300">Тип операції</p>
-      <select name="type_operation" class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+      <select name="type_operation" class="shadow-sm border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light form-control">
         <option value="Витрата">Витрата</option>
         <option value="Дохід">Дохід</option>
       </select>
     </div>
     <div class="relative z-0 mb-6 w-full group">
       <p class="block mb-2 text-sm font-medium text-gray-300">Категорія</p>
-      <select name="category" class="form-control shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+      <select name="category" class="shadow-sm border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light form-control">
         <option value="Виберіть категорію">Виберіть категорію</option>
         <% @categories.each do |category| %>
           <option value="<%= category.id %>"><%= category.name %></option>
